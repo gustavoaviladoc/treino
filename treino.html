@@ -9,224 +9,147 @@
 <title>Meu Treino</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',sans-serif;background:#f2f2f7;color:#1c1c1e;min-height:100vh;padding-bottom:40px;}
-.header{background:#fff;padding:16px 16px 12px;border-bottom:0.5px solid rgba(0,0,0,0.12);position:sticky;top:0;z-index:10;}
-.header h1{font-size:22px;font-weight:600;color:#1c1c1e;}
+body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',sans-serif;background:#f2f2f7;color:#1c1c1e;min-height:100vh;}
+.tabs{display:flex;background:#fff;border-bottom:0.5px solid rgba(0,0,0,0.12);position:sticky;top:0;z-index:20;}
+.tab{flex:1;padding:12px 4px;text-align:center;font-size:12px;color:#8e8e93;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.15s;}
+.tab.active{color:#1c1c1e;border-bottom:2px solid #1c1c1e;font-weight:500;}
+.screen{display:none;padding-bottom:40px;}
+.screen.active{display:block;}
+.header{background:#fff;padding:16px 16px 12px;border-bottom:0.5px solid rgba(0,0,0,0.08);}
+.header h1{font-size:22px;font-weight:600;}
 .header p{font-size:13px;color:#8e8e93;margin-top:2px;}
 .week-nav{display:flex;gap:6px;overflow-x:auto;padding:12px 16px;scrollbar-width:none;background:#fff;border-bottom:0.5px solid rgba(0,0,0,0.08);}
 .week-nav::-webkit-scrollbar{display:none;}
-.day-btn{flex:0 0 auto;padding:7px 16px;border-radius:20px;border:1px solid #d1d1d6;background:#fff;color:#8e8e93;font-size:14px;font-weight:500;cursor:pointer;transition:all 0.15s;position:relative;}
+.day-btn{flex:0 0 auto;padding:7px 16px;border-radius:20px;border:1px solid #d1d1d6;background:#fff;color:#8e8e93;font-size:14px;font-weight:500;cursor:pointer;transition:all 0.15s;}
 .day-btn.active{background:#1c1c1e;color:#fff;border-color:#1c1c1e;}
-.day-btn.has-progress:not(.active){border-color:#34c759;color:#34c759;}
-.day-btn .dot{position:absolute;top:4px;right:4px;width:6px;height:6px;border-radius:50%;background:#34c759;display:none;}
-.day-btn.partial .dot{display:block;}
+.day-btn.done-full{border-color:#34c759;color:#34c759;}
+.day-btn.done-partial{border-color:#ff9500;color:#ff9500;}
 .content{padding:16px;}
 .day-header{background:#fff;border-radius:14px;padding:16px;margin-bottom:8px;border:0.5px solid rgba(0,0,0,0.08);}
-.day-title{font-size:18px;font-weight:600;color:#1c1c1e;}
+.day-title{font-size:18px;font-weight:600;}
 .day-sub{font-size:13px;color:#8e8e93;margin-top:3px;}
 .progress-wrap{margin-top:12px;display:flex;align-items:center;gap:10px;}
 .progress-bar-bg{flex:1;height:5px;background:#e5e5ea;border-radius:5px;overflow:hidden;}
 .progress-bar{height:100%;background:#34c759;border-radius:5px;transition:width 0.3s;}
 .progress-label{font-size:13px;color:#8e8e93;min-width:52px;text-align:right;}
 .section-label{font-size:12px;font-weight:600;color:#8e8e93;text-transform:uppercase;letter-spacing:0.05em;margin:20px 0 8px 4px;}
-.exercise-card{background:#fff;border-radius:14px;padding:14px 16px;margin-bottom:8px;display:flex;align-items:center;gap:14px;cursor:pointer;border:0.5px solid rgba(0,0,0,0.08);transition:background 0.15s;}
+.exercise-card{background:#fff;border-radius:14px;padding:12px 14px;margin-bottom:8px;border:0.5px solid rgba(0,0,0,0.08);}
+.exercise-top{display:flex;align-items:center;gap:12px;cursor:pointer;}
 .exercise-card.done{background:#f0fdf4;border-color:#bbf7d0;}
 .check{width:24px;height:24px;border-radius:50%;border:1.5px solid #d1d1d6;flex:0 0 24px;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
 .exercise-card.done .check{background:#34c759;border-color:#34c759;}
 .checkmark{display:none;width:13px;height:13px;}
 .exercise-card.done .checkmark{display:block;}
 .ex-info{flex:1;}
-.ex-name{font-size:15px;font-weight:500;color:#1c1c1e;transition:color 0.15s;}
+.ex-name{font-size:15px;font-weight:500;color:#1c1c1e;}
 .ex-detail{font-size:13px;color:#8e8e93;margin-top:2px;}
 .exercise-card.done .ex-name{color:#15803d;}
 .exercise-card.done .ex-detail{color:#4ade80;}
 .zone-badge{display:inline-block;padding:2px 8px;border-radius:8px;font-size:11px;font-weight:500;background:#e0f2fe;color:#0369a1;margin-top:5px;}
+.expand-btn{font-size:12px;color:#8e8e93;background:none;border:none;cursor:pointer;padding:2px 0 0 36px;width:100%;}
+.ex-extra{padding:10px 0 2px 36px;display:none;}
+.ex-extra.open{display:block;}
+.ex-extra label{font-size:12px;color:#8e8e93;display:block;margin-bottom:4px;margin-top:8px;}
+.ex-extra input,.ex-extra textarea{width:100%;border:0.5px solid #d1d1d6;border-radius:8px;padding:8px 10px;font-size:14px;background:#f9f9f9;color:#1c1c1e;font-family:inherit;}
+.ex-extra textarea{resize:none;height:60px;}
 .reset-btn{width:100%;margin-top:20px;padding:13px;border:1px solid #d1d1d6;border-radius:12px;background:#fff;color:#8e8e93;font-size:14px;cursor:pointer;font-weight:500;}
-.reset-btn:active{background:#f2f2f7;}
-.week-reset{font-size:13px;color:#ff3b30;background:none;border:none;cursor:pointer;padding:0;float:right;margin-top:2px;}
+.finish-btn{width:100%;margin-top:10px;padding:13px;border:none;border-radius:12px;background:#1c1c1e;color:#fff;font-size:14px;cursor:pointer;font-weight:500;}
+.hist-week{background:#fff;border-radius:14px;padding:16px;margin-bottom:12px;border:0.5px solid rgba(0,0,0,0.08);}
+.hist-week-title{font-size:15px;font-weight:600;margin-bottom:12px;}
+.hist-days{display:flex;gap:8px;flex-wrap:wrap;}
+.hist-day{padding:6px 12px;border-radius:20px;font-size:13px;border:0.5px solid #e5e5ea;}
+.hist-day.done{background:#f0fdf4;border-color:#bbf7d0;color:#15803d;}
+.hist-day.partial{background:#fff7ed;border-color:#fed7aa;color:#c2410c;}
+.hist-day.missed{background:#f9f9f9;color:#8e8e93;}
+.hist-empty{text-align:center;padding:40px 20px;color:#8e8e93;font-size:14px;}
+.evo-exercise{background:#fff;border-radius:14px;padding:16px;margin-bottom:12px;border:0.5px solid rgba(0,0,0,0.08);}
+.evo-name{font-size:15px;font-weight:600;margin-bottom:8px;}
+.evo-entries{display:flex;flex-direction:column;gap:6px;}
+.evo-entry{display:flex;justify-content:space-between;align-items:center;font-size:13px;}
+.evo-date{color:#8e8e93;}
+.evo-weight{font-weight:500;color:#1c1c1e;}
+.export-section{background:#fff;border-radius:14px;padding:16px;margin-bottom:12px;border:0.5px solid rgba(0,0,0,0.08);}
+.export-section h3{font-size:15px;font-weight:600;margin-bottom:4px;}
+.export-section p{font-size:13px;color:#8e8e93;margin-bottom:12px;}
+.export-btn{width:100%;padding:13px;border-radius:12px;border:0.5px solid #d1d1d6;background:#fff;font-size:14px;color:#1c1c1e;cursor:pointer;font-weight:500;margin-bottom:8px;}
+.export-btn.primary{background:#1c1c1e;color:#fff;border-color:#1c1c1e;}
+.textarea-export{width:100%;border:0.5px solid #d1d1d6;border-radius:10px;padding:12px;font-size:13px;font-family:monospace;height:200px;background:#f9f9f9;color:#1c1c1e;resize:none;margin-top:8px;display:none;}
 </style>
 </head>
 <body>
-
-<div class="header">
-  <h1>Meu Treino</h1>
-  <p>Semana 1 · Bloco de retomada</p>
+<div class="tabs">
+  <div class="tab active" onclick="showScreen('treino',this)">Treino</div>
+  <div class="tab" onclick="showScreen('historico',this)">Histórico</div>
+  <div class="tab" onclick="showScreen('evolucao',this)">Evolução</div>
+  <div class="tab" onclick="showScreen('exportar',this)">Exportar</div>
 </div>
-
-<div class="week-nav" id="weekNav"></div>
-
-<div class="content">
-  <div id="dayContent"></div>
+<div class="screen active" id="screen-treino">
+  <div class="header"><h1>Meu Treino</h1><p>Semana 1 · Bloco de retomada</p></div>
+  <div class="week-nav" id="weekNav"></div>
+  <div class="content" id="dayContent"></div>
 </div>
-
-<script>
-const days = [
-  {id:'seg',label:'Seg',type:'musculacao',title:'Musculação',sub:'Segunda-feira · manhã'},
-  {id:'ter',label:'Ter',type:'bike',title:'Bike noturna',sub:'Terça-feira · a partir das 20h'},
-  {id:'qua',label:'Qua',type:'musculacao',title:'Musculação',sub:'Quarta-feira · manhã'},
-  {id:'qui',label:'Qui',type:'bike',title:'Bike noturna',sub:'Quinta-feira · a partir das 20h'},
-  {id:'sex',label:'Sex',type:'musculacao',title:'Musculação',sub:'Sexta-feira · manhã'},
-  {id:'sab',label:'Sáb',type:'bike_longa',title:'Bike longa',sub:'Sábado ou domingo · manhã'},
-];
-
-const musculacao = [
-  {section:'Aquecimento (15 min)',items:[
-    {name:'Esteira leve',detail:'15 min · ritmo leve'},
-    {name:'Mobilidade articular',detail:'Quadril, ombros e coluna · 5 min'},
-  ]},
-  {section:'Membros inferiores',items:[
-    {name:'Cadeira extensora',detail:'3 séries · 12–15 reps'},
-    {name:'Cadeira flexora',detail:'3 séries · 12–15 reps'},
-    {name:'Elevação de quadril',detail:'3 séries · 12–15 reps · carga leve'},
-    {name:'Afundo',detail:'3 séries · 12 reps · sem carga ou leve'},
-  ]},
-  {section:'Membros superiores',items:[
-    {name:'Supino com halteres',detail:'3 séries · 12–15 reps'},
-    {name:'Remada na polia baixa',detail:'3 séries · 12–15 reps'},
-    {name:'Desenvolvimento com halteres',detail:'3 séries · 12–15 reps'},
-    {name:'Rosca direta',detail:'3 séries · 12–15 reps'},
-    {name:'Tríceps na polia',detail:'3 séries · 12–15 reps'},
-  ]},
-  {section:'Costas',items:[
-    {name:'Puxada na polia alta',detail:'3 séries · 12–15 reps · alternar pegada'},
-    {name:'Remada cavalinho',detail:'3 séries · 12–15 reps'},
-  ]},
-  {section:'Core',items:[
-    {name:'Prancha frontal',detail:'3x · 30–45 seg'},
-    {name:'Prancha lateral',detail:'3x cada lado · 20–30 seg'},
-    {name:'Bird-dog',detail:'3x · 10 reps cada lado'},
-  ]},
-  {section:'Desaquecimento (15 min)',items:[
-    {name:'Alongamento geral',detail:'Quadril, costas e ombros'},
-  ]},
-];
-
-const bike = [
-  {section:'Pedalada noturna',items:[
-    {name:'Duração alvo',detail:'40–50 min'},
-    {name:'Ritmo',detail:'Leve a moderado'},
-    {name:'Hidratação',detail:'Beba água antes, durante e após'},
-  ]},
-  {section:'Zonas de FC alvo',items:[
-    {name:'Zona 2 · base aeróbica',detail:'107–125 bpm · foco principal',zone:true},
-    {name:'Zona 3 · moderado',detail:'125–143 bpm · trechos pontuais',zone:true},
-  ]},
-];
-
-const bike_longa = [
-  {section:'Saída longa',items:[
-    {name:'Distância (semanas 1–2)',detail:'50 km'},
-    {name:'Distância (semanas 3–4)',detail:'55–60 km'},
-    {name:'Progressão',detail:'+10% por semana'},
-  ]},
-  {section:'Zonas de FC alvo',items:[
-    {name:'Zona 2 · base aeróbica',detail:'107–125 bpm · maior parte do tempo',zone:true},
-    {name:'Zona 3 · moderado',detail:'125–143 bpm · se sentir bem',zone:true},
-  ]},
-  {section:'Nutrição e hidratação',items:[
-    {name:'Pré-treino',detail:'Algo leve 1h antes'},
-    {name:'Durante',detail:'Barra ou fruta após 45 min'},
-    {name:'Hidratação',detail:'Mínimo 500ml por hora'},
-  ]},
-];
-
-const dataMap = {musculacao, bike, bike_longa};
-const STORAGE_KEY = 'treino_state_v1';
-
-let state = {};
-try { state = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch(e) {}
-
-let current = 'seg';
-
-function save() {
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e) {}
-}
-
-function getKey(dayId, idx) { return dayId + '_' + idx; }
-
-function flatItems(sections) {
-  const flat = [];
-  sections.forEach(s => s.items.forEach(item => flat.push(item)));
-  return flat;
-}
-
-function renderNav() {
-  const nav = document.getElementById('weekNav');
-  nav.innerHTML = '';
-  days.forEach(d => {
-    const flat = flatItems(dataMap[d.type]);
-    const done = flat.filter((_, i) => state[getKey(d.id, i)]).length;
-    const total = flat.length;
-    const btn = document.createElement('button');
-    let cls = 'day-btn';
-    if (d.id === current) cls += ' active';
-    if (done > 0 && done < total && d.id !== current) cls += ' has-progress partial';
-    if (done === total && done > 0 && d.id !== current) cls += ' has-progress';
-    btn.className = cls;
-    btn.innerHTML = d.label + '<span class="dot"></span>';
-    btn.onclick = () => { current = d.id; render(); };
-    nav.appendChild(btn);
-  });
-}
-
-function render() {
-  renderNav();
-  const day = days.find(d => d.id === current);
-  const sections = dataMap[day.type];
-  const flat = flatItems(sections);
-  const done = flat.filter((_, i) => state[getKey(day.id, i)]).length;
-  const total = flat.length;
-  const pct = total > 0 ? Math.round(done / total * 100) : 0;
-
-  let html = `<div class="day-header">
-    <div class="day-title">${day.title}</div>
-    <div class="day-sub">${day.sub}</div>
-    <div class="progress-wrap">
-      <div class="progress-bar-bg"><div class="progress-bar" style="width:${pct}%"></div></div>
-      <div class="progress-label">${done}/${total} feitos</div>
+<div class="screen" id="screen-historico">
+  <div class="header"><h1>Histórico</h1><p>Treinos registrados por semana</p></div>
+  <div class="content" id="histContent"></div>
+</div>
+<div class="screen" id="screen-evolucao">
+  <div class="header"><h1>Evolução de carga</h1><p>Progresso por exercício</p></div>
+  <div class="content" id="evoContent"></div>
+</div>
+<div class="screen" id="screen-exportar">
+  <div class="header"><h1>Exportar</h1><p>Resumo dos seus treinos</p></div>
+  <div class="content">
+    <div class="export-section">
+      <h3>Resumo da semana atual</h3>
+      <p>Gera um texto com todos os exercícios feitos, pesos e anotações.</p>
+      <button class="export-btn primary" onclick="generateExport()">Gerar resumo</button>
+      <textarea class="textarea-export" id="exportText" readonly></textarea>
+      <button class="export-btn" id="copyBtn" style="display:none" onclick="copyExport()">Copiar texto</button>
     </div>
-  </div>`;
-
-  let gi = 0;
-  sections.forEach(sec => {
-    html += `<div class="section-label">${sec.section}</div>`;
-    sec.items.forEach(item => {
-      const idx = gi;
-      const isDone = !!state[getKey(day.id, idx)];
-      html += `<div class="exercise-card${isDone ? ' done' : ''}" onclick="toggle('${day.id}',${idx})">
-        <div class="check">
-          <svg class="checkmark" viewBox="0 0 13 13" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="2,7 5,10 11,3"/>
-          </svg>
-        </div>
-        <div class="ex-info">
-          <div class="ex-name">${item.name}</div>
-          <div class="ex-detail">${item.detail}</div>
-          ${item.zone ? '<span class="zone-badge">FC</span>' : ''}
-        </div>
-      </div>`;
-      gi++;
-    });
-  });
-
-  html += `<button class="reset-btn" onclick="resetDay('${day.id}')">Limpar dia</button>`;
-  document.getElementById('dayContent').innerHTML = html;
-}
-
-function toggle(dayId, idx) {
-  const k = getKey(dayId, idx);
-  state[k] = !state[k];
-  save();
-  render();
-}
-
-function resetDay(dayId) {
-  Object.keys(state).forEach(k => { if (k.startsWith(dayId + '_')) delete state[k]; });
-  save();
-  render();
-}
-
-render();
+    <div class="export-section">
+      <h3>Limpar todos os dados</h3>
+      <p>Remove todo o histórico, pesos e anotações salvos. Não pode ser desfeito.</p>
+      <button class="export-btn" style="color:#ff3b30;border-color:#ff3b30;" onclick="clearAll()">Apagar tudo</button>
+    </div>
+  </div>
+</div>
+<script>
+const DAYS=[{id:'seg',label:'Seg',type:'musculacao',title:'Musculação',sub:'Segunda-feira · manhã'},{id:'ter',label:'Ter',type:'bike',title:'Bike noturna',sub:'Terça-feira · a partir das 20h'},{id:'qua',label:'Qua',type:'musculacao',title:'Musculação',sub:'Quarta-feira · manhã'},{id:'qui',label:'Qui',type:'bike',title:'Bike noturna',sub:'Quinta-feira · a partir das 20h'},{id:'sex',label:'Sex',type:'musculacao',title:'Musculação',sub:'Sexta-feira · manhã'},{id:'sab',label:'Sáb',type:'bike_longa',title:'Bike longa',sub:'Sábado ou domingo · manhã'}];
+const MUSCULACAO=[{section:'Aquecimento (15 min)',items:[{name:'Esteira leve',detail:'15 min · ritmo leve'},{name:'Mobilidade articular',detail:'Quadril, ombros e coluna · 5 min'}]},{section:'Membros inferiores',items:[{name:'Cadeira extensora',detail:'3 séries · 12–15 reps',hasWeight:true},{name:'Cadeira flexora',detail:'3 séries · 12–15 reps',hasWeight:true},{name:'Elevação de quadril',detail:'3 séries · 12–15 reps · carga leve',hasWeight:true},{name:'Afundo',detail:'3 séries · 12 reps · sem carga ou leve',hasWeight:true}]},{section:'Membros superiores',items:[{name:'Supino com halteres',detail:'3 séries · 12–15 reps',hasWeight:true},{name:'Remada na polia baixa',detail:'3 séries · 12–15 reps',hasWeight:true},{name:'Desenvolvimento com halteres',detail:'3 séries · 12–15 reps',hasWeight:true},{name:'Rosca direta',detail:'3 séries · 12–15 reps',hasWeight:true},{name:'Tríceps na polia',detail:'3 séries · 12–15 reps',hasWeight:true}]},{section:'Costas',items:[{name:'Puxada na polia alta',detail:'3 séries · 12–15 reps · alternar pegada',hasWeight:true},{name:'Remada cavalinho',detail:'3 séries · 12–15 reps',hasWeight:true}]},{section:'Core',items:[{name:'Prancha frontal',detail:'3x · 30–45 seg'},{name:'Prancha lateral',detail:'3x cada lado · 20–30 seg'},{name:'Bird-dog',detail:'3x · 10 reps cada lado'}]},{section:'Desaquecimento (15 min)',items:[{name:'Alongamento geral',detail:'Quadril, costas e ombros'}]}];
+const BIKE=[{section:'Pedalada noturna',items:[{name:'Duração alvo',detail:'40–50 min'},{name:'Ritmo',detail:'Leve a moderado'},{name:'Hidratação',detail:'Água antes, durante e após'}]},{section:'Zonas de FC alvo',items:[{name:'Zona 2 · base aeróbica',detail:'107–125 bpm · foco principal',zone:true},{name:'Zona 3 · moderado',detail:'125–143 bpm · trechos pontuais',zone:true}]}];
+const BIKE_LONGA=[{section:'Saída longa',items:[{name:'Distância (semanas 1–2)',detail:'50 km'},{name:'Distância (semanas 3–4)',detail:'55–60 km'},{name:'Progressão',detail:'+10% por semana'}]},{section:'Zonas de FC alvo',items:[{name:'Zona 2 · base aeróbica',detail:'107–125 bpm · maior parte do tempo',zone:true},{name:'Zona 3 · moderado',detail:'125–143 bpm · se sentir bem',zone:true}]},{section:'Nutrição e hidratação',items:[{name:'Pré-treino',detail:'Algo leve 1h antes'},{name:'Durante',detail:'Barra ou fruta após 45 min'},{name:'Hidratação',detail:'Mínimo 500ml por hora'}]}];
+const DATA_MAP={musculacao:MUSCULACAO,bike:BIKE,bike_longa:BIKE_LONGA};
+const SK='treino_v2';
+let db={};
+let currentDay='seg';
+let currentWeek=getWeekKey();
+let openExtras={};
+function getWeekKey(){const d=new Date();const jan1=new Date(d.getFullYear(),0,1);const wk=Math.ceil(((d-jan1)/86400000+jan1.getDay()+1)/7);return d.getFullYear()+'W'+String(wk).padStart(2,'0');}
+function load(){try{db=JSON.parse(localStorage.getItem(SK))||{};}catch(e){db={};}}
+function save(){try{localStorage.setItem(SK,JSON.stringify(db));}catch(e){}}
+function getChecks(w,d){return(db[w]&&db[w][d]&&db[w][d].checks)||{};}
+function getNotes(w,d,i){return(db[w]&&db[w][d]&&db[w][d].notes&&db[w][d].notes[i])||'';}
+function getWeight(w,d,i){return(db[w]&&db[w][d]&&db[w][d].weights&&db[w][d].weights[i])||'';}
+function setCheck(w,d,i,v){if(!db[w])db[w]={};if(!db[w][d])db[w][d]={checks:{},notes:{},weights:{}};db[w][d].checks[i]=v;save();}
+function setNote(w,d,i,v){if(!db[w])db[w]={};if(!db[w][d])db[w][d]={checks:{},notes:{},weights:{}};if(!db[w][d].notes)db[w][d].notes={};db[w][d].notes[i]=v;save();}
+function setWeight(w,d,i,v){if(!db[w])db[w]={};if(!db[w][d])db[w][d]={checks:{},notes:{},weights:{}};if(!db[w][d].weights)db[w][d].weights={};db[w][d].weights[i]=v;if(v){const dayObj=DAYS.find(x=>x.id===d);const flat=flatItems(DATA_MAP[dayObj.type]);const exName=flat[i]?flat[i].name:'';if(!db._evo)db._evo={};if(!db._evo[exName])db._evo[exName]=[];const today=new Date().toLocaleDateString('pt-BR');const existing=db._evo[exName].find(e=>e.date===today&&e.week===w);if(existing){existing.weight=v;}else{db._evo[exName].push({date:today,week:w,weight:v});}}save();}
+function flatItems(sections){const flat=[];sections.forEach(s=>s.items.forEach(i=>flat.push(i)));return flat;}
+function showScreen(name,el){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.getElementById('screen-'+name).classList.add('active');el.classList.add('active');if(name==='historico')renderHistorico();if(name==='evolucao')renderEvolucao();}
+function renderNav(){const nav=document.getElementById('weekNav');nav.innerHTML='';DAYS.forEach(d=>{const flat=flatItems(DATA_MAP[d.type]);const checks=getChecks(currentWeek,d.id);const done=flat.filter((_,i)=>checks[i]).length;const total=flat.length;const btn=document.createElement('button');let cls='day-btn';if(d.id===currentDay)cls+=' active';else if(done===total&&done>0)cls+=' done-full';else if(done>0)cls+=' done-partial';btn.className=cls;btn.textContent=d.label;btn.onclick=()=>{currentDay=d.id;openExtras={};renderDay();};nav.appendChild(btn);});}
+function renderDay(){renderNav();const day=DAYS.find(d=>d.id===currentDay);const sections=DATA_MAP[day.type];const flat=flatItems(sections);const checks=getChecks(currentWeek,currentDay);const done=flat.filter((_,i)=>checks[i]).length;const total=flat.length;const pct=total>0?Math.round(done/total*100):0;let html=`<div class="day-header"><div class="day-title">${day.title}</div><div class="day-sub">${day.sub}</div><div class="progress-wrap"><div class="progress-bar-bg"><div class="progress-bar" style="width:${pct}%"></div></div><div class="progress-label">${done}/${total}</div></div></div>`;let gi=0;sections.forEach(sec=>{html+=`<div class="section-label">${sec.section}</div>`;sec.items.forEach(item=>{const idx=gi;const isDone=!!checks[idx];const isOpen=!!openExtras[idx];const note=getNotes(currentWeek,currentDay,idx);const weight=getWeight(currentWeek,currentDay,idx);html+=`<div class="exercise-card${isDone?' done':''}" id="card-${idx}"><div class="exercise-top" onclick="toggle(${idx})"><div class="check"><svg class="checkmark" viewBox="0 0 13 13" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,7 5,10 11,3"/></svg></div><div class="ex-info"><div class="ex-name">${item.name}</div><div class="ex-detail">${item.detail}${weight?' · <strong>'+weight+'kg</strong>':''}</div>${item.zone?'<span class="zone-badge">FC</span>':''}</div></div><button class="expand-btn" onclick="toggleExtra(${idx})">${isOpen?'▲ fechar':'▼ peso e anotação'}</button><div class="ex-extra${isOpen?' open':''}">${item.hasWeight?`<label>Carga usada (kg)</label><input type="number" inputmode="decimal" placeholder="ex: 12.5" value="${weight}" onchange="saveWeight(${idx},this.value)">`:''}<label>Anotação</label><textarea placeholder="ex: senti dificuldade na 3ª série..." onchange="saveNote(${idx},this.value)">${note}</textarea></div></div>`;gi++;});});html+=`<button class="finish-btn" onclick="finishDay()">Registrar treino do dia</button><button class="reset-btn" onclick="resetDay()">Limpar dia</button>`;document.getElementById('dayContent').innerHTML=html;}
+function toggle(idx){const checks=getChecks(currentWeek,currentDay);setCheck(currentWeek,currentDay,idx,!checks[idx]);renderDay();}
+function toggleExtra(idx){openExtras[idx]=!openExtras[idx];renderDay();}
+function saveNote(idx,val){setNote(currentWeek,currentDay,idx,val);}
+function saveWeight(idx,val){setWeight(currentWeek,currentDay,idx,val);renderDay();}
+function finishDay(){const day=DAYS.find(d=>d.id===currentDay);const flat=flatItems(DATA_MAP[day.type]);const checks=getChecks(currentWeek,currentDay);const done=flat.filter((_,i)=>checks[i]).length;if(!db[currentWeek])db[currentWeek]={};if(!db[currentWeek][currentDay])db[currentWeek][currentDay]={checks:{},notes:{},weights:{}};db[currentWeek][currentDay].finished=true;db[currentWeek][currentDay].finishedAt=new Date().toISOString();db[currentWeek][currentDay].doneCount=done;db[currentWeek][currentDay].totalCount=flat.length;save();alert('Treino registrado! '+done+' de '+flat.length+' exercícios concluídos.');}
+function resetDay(){if(!confirm('Limpar todos os checks do dia?'))return;if(db[currentWeek]&&db[currentWeek][currentDay]){db[currentWeek][currentDay].checks={};db[currentWeek][currentDay].finished=false;}openExtras={};save();renderDay();}
+function renderHistorico(){const weeks=Object.keys(db).filter(k=>k.match(/^\d{4}W\d{2}$/)).sort().reverse();if(weeks.length===0){document.getElementById('histContent').innerHTML='<div class="hist-empty">Nenhum treino registrado ainda.<br>Complete um dia e toque em "Registrar treino do dia".</div>';return;}let html='';weeks.forEach(wk=>{const parts=wk.split('W');html+=`<div class="hist-week"><div class="hist-week-title">Semana ${parseInt(parts[1])} · ${parts[0]}</div><div class="hist-days">`;DAYS.forEach(d=>{const dayData=db[wk]&&db[wk][d.id];let cls='hist-day missed';let label=d.label;if(dayData&&dayData.finished){const pct=dayData.totalCount?Math.round(dayData.doneCount/dayData.totalCount*100):0;cls=pct===100?'hist-day done':'hist-day partial';label+=` ${pct}%`;}html+=`<div class="${cls}">${label}</div>`;});html+='</div></div>';});document.getElementById('histContent').innerHTML=html;}
+function renderEvolucao(){if(!db._evo||Object.keys(db._evo).length===0){document.getElementById('evoContent').innerHTML='<div class="hist-empty">Nenhuma carga registrada ainda.<br>Adicione pesos nos exercícios durante o treino.</div>';return;}let html='';Object.keys(db._evo).sort().forEach(exName=>{const entries=db._evo[exName].slice().reverse();html+=`<div class="evo-exercise"><div class="evo-name">${exName}</div><div class="evo-entries">`;entries.forEach(e=>{html+=`<div class="evo-entry"><span class="evo-date">${e.date}</span><span class="evo-weight">${e.weight} kg</span></div>`;});html+='</div></div>';});document.getElementById('evoContent').innerHTML=html;}
+function generateExport(){const lines=[];const now=new Date().toLocaleDateString('pt-BR');lines.push('RESUMO DE TREINO — '+now);lines.push('Semana: '+currentWeek);lines.push('');DAYS.forEach(d=>{const dayData=db[currentWeek]&&db[currentWeek][d.id];if(!dayData)return;const flat=flatItems(DATA_MAP[d.type]);const checks=dayData.checks||{};const done=flat.filter((_,i)=>checks[i]).length;lines.push('--- '+d.title.toUpperCase()+' ('+d.label+') ---');lines.push('Concluídos: '+done+'/'+flat.length);flat.forEach((item,i)=>{const status=checks[i]?'✓':'○';const w=(dayData.weights&&dayData.weights[i])?(' ['+dayData.weights[i]+'kg]'):'';const n=(dayData.notes&&dayData.notes[i])?(' — '+dayData.notes[i]):'';lines.push('  '+status+' '+item.name+w+n);});lines.push('');});if(db._evo&&Object.keys(db._evo).length>0){lines.push('--- EVOLUÇÃO DE CARGA ---');Object.keys(db._evo).sort().forEach(ex=>{const last=db._evo[ex][db._evo[ex].length-1];if(last)lines.push('  '+ex+': '+last.weight+'kg ('+last.date+')');})}const txt=lines.join('\n');document.getElementById('exportText').value=txt;document.getElementById('exportText').style.display='block';document.getElementById('copyBtn').style.display='block';}
+function copyExport(){const ta=document.getElementById('exportText');ta.select();try{navigator.clipboard.writeText(ta.value).then(()=>alert('Copiado!'));}catch(e){document.execCommand('copy');alert('Copiado!');}}
+function clearAll(){if(!confirm('Apagar TODOS os dados? Isso não pode ser desfeito.'))return;localStorage.removeItem(SK);db={};alert('Dados apagados.');renderDay();}
+load();
+renderDay();
 </script>
 </body>
 </html>
