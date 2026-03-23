@@ -18,22 +18,59 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',sans-serif;backg
 .header{background:#fff;padding:16px 16px 12px;border-bottom:0.5px solid rgba(0,0,0,0.08);}
 .header h1{font-size:22px;font-weight:600;}
 .header p{font-size:13px;color:#8e8e93;margin-top:2px;}
-.week-nav{display:flex;gap:6px;overflow-x:auto;padding:12px 16px;scrollbar-width:none;background:#fff;border-bottom:0.5px solid rgba(0,0,0,0.08);}
-.week-nav::-webkit-scrollbar{display:none;}
-.day-btn{flex:0 0 auto;padding:7px 16px;border-radius:20px;border:1px solid #d1d1d6;background:#fff;color:#8e8e93;font-size:14px;font-weight:500;cursor:pointer;transition:all 0.15s;}
-.day-btn.active{background:#1c1c1e;color:#fff;border-color:#1c1c1e;}
-.day-btn.done-full{border-color:#34c759;color:#34c759;}
-.day-btn.done-partial{border-color:#ff9500;color:#ff9500;}
+
+/* Month navigation */
+.month-nav{display:flex;align-items:center;justify-content:space-between;background:#fff;padding:10px 16px;border-bottom:0.5px solid rgba(0,0,0,0.08);}
+.month-nav button{background:none;border:none;font-size:20px;color:#8e8e93;cursor:pointer;padding:4px 10px;border-radius:8px;}
+.month-nav button:active{background:#e5e5ea;}
+.month-label{font-size:15px;font-weight:600;text-transform:capitalize;}
+
+/* Day grid */
+.day-grid-wrap{background:#fff;padding:8px 12px 12px;border-bottom:0.5px solid rgba(0,0,0,0.08);}
+.day-grid-header{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;margin-bottom:4px;}
+.day-grid-header span{font-size:11px;color:#8e8e93;font-weight:500;padding:4px 0;}
+.day-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center;}
+.day-cell{padding:6px 2px;border-radius:10px;font-size:13px;font-weight:500;color:#8e8e93;cursor:pointer;position:relative;min-height:34px;display:flex;align-items:center;justify-content:center;transition:all 0.15s;}
+.day-cell.empty{cursor:default;}
+.day-cell.today{color:#1c1c1e;font-weight:700;}
+.day-cell.selected{background:#1c1c1e;color:#fff;}
+.day-cell.has-data::after{content:'';position:absolute;bottom:3px;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:#34c759;}
+.day-cell.has-data.selected::after{background:#fff;}
+.day-cell.future{color:#d1d1d6;}
+
 .content{padding:16px;}
+
+/* Day header */
 .day-header{background:#fff;border-radius:14px;padding:16px;margin-bottom:8px;border:0.5px solid rgba(0,0,0,0.08);}
 .day-title{font-size:18px;font-weight:600;}
 .day-sub{font-size:13px;color:#8e8e93;margin-top:3px;}
-.progress-wrap{margin-top:12px;display:flex;align-items:center;gap:10px;}
+
+/* Accordion for Academia / Bike */
+.activity-accordion{background:#fff;border-radius:14px;margin-bottom:8px;border:0.5px solid rgba(0,0,0,0.08);overflow:hidden;}
+.accordion-trigger{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;cursor:pointer;-webkit-user-select:none;user-select:none;}
+.accordion-trigger:active{background:#f9f9f9;}
+.accordion-left{display:flex;align-items:center;gap:10px;}
+.accordion-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;}
+.accordion-icon.gym{background:#f0f0f5;color:#1c1c1e;}
+.accordion-icon.bike{background:#e0f2fe;color:#0369a1;}
+.accordion-title{font-size:15px;font-weight:600;}
+.accordion-badge{font-size:12px;color:#8e8e93;background:#f2f2f7;padding:2px 8px;border-radius:10px;}
+.accordion-badge.complete{background:#f0fdf4;color:#15803d;}
+.accordion-badge.partial{background:#fff7ed;color:#c2410c;}
+.accordion-arrow{font-size:13px;color:#8e8e93;transition:transform 0.2s;}
+.accordion-arrow.open{transform:rotate(180deg);}
+.accordion-body{display:none;border-top:0.5px solid rgba(0,0,0,0.06);}
+.accordion-body.open{display:block;}
+.accordion-body .content-inner{padding:12px 14px 14px;}
+
+/* Progress */
+.progress-wrap{margin-top:10px;margin-bottom:4px;display:flex;align-items:center;gap:10px;}
 .progress-bar-bg{flex:1;height:5px;background:#e5e5ea;border-radius:5px;overflow:hidden;}
 .progress-bar{height:100%;background:#34c759;border-radius:5px;transition:width 0.3s;}
 .progress-label{font-size:13px;color:#8e8e93;min-width:52px;text-align:right;}
-.section-label{font-size:12px;font-weight:600;color:#8e8e93;text-transform:uppercase;letter-spacing:0.05em;margin:20px 0 8px 4px;}
-.exercise-card{background:#fff;border-radius:14px;padding:12px 14px;margin-bottom:8px;border:0.5px solid rgba(0,0,0,0.08);}
+
+.section-label{font-size:12px;font-weight:600;color:#8e8e93;text-transform:uppercase;letter-spacing:0.05em;margin:14px 0 8px 2px;}
+.exercise-card{background:#f9f9fb;border-radius:12px;padding:12px 14px;margin-bottom:6px;border:0.5px solid rgba(0,0,0,0.05);}
 .exercise-top{display:flex;align-items:center;gap:12px;cursor:pointer;}
 .exercise-card.done{background:#f0fdf4;border-color:#bbf7d0;}
 .check{width:24px;height:24px;border-radius:50%;border:1.5px solid #d1d1d6;flex:0 0 24px;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
@@ -50,10 +87,25 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',sans-serif;backg
 .ex-extra{padding:10px 0 2px 36px;display:none;}
 .ex-extra.open{display:block;}
 .ex-extra label{font-size:12px;color:#8e8e93;display:block;margin-bottom:4px;margin-top:8px;}
-.ex-extra input,.ex-extra textarea{width:100%;border:0.5px solid #d1d1d6;border-radius:8px;padding:8px 10px;font-size:14px;background:#f9f9f9;color:#1c1c1e;font-family:inherit;}
+.ex-extra input,.ex-extra textarea{width:100%;border:0.5px solid #d1d1d6;border-radius:8px;padding:8px 10px;font-size:14px;background:#fff;color:#1c1c1e;font-family:inherit;}
 .ex-extra textarea{resize:none;height:60px;}
+
+/* Bike fields inside accordion */
+.bike-fields label{font-size:12px;color:#8e8e93;display:block;margin-bottom:4px;margin-top:10px;}
+.bike-fields label:first-child{margin-top:0;}
+.bike-fields input,.bike-fields textarea{width:100%;border:0.5px solid #d1d1d6;border-radius:8px;padding:8px 10px;font-size:14px;background:#fff;color:#1c1c1e;font-family:inherit;}
+.bike-fields textarea{resize:none;height:60px;}
+.bike-fields .field-row{display:flex;gap:8px;}
+.bike-fields .field-row > div{flex:1;}
+.bike-info{font-size:12px;color:#8e8e93;margin-top:6px;}
+.bike-zone-ref{margin-top:12px;padding:10px;background:#f2f2f7;border-radius:10px;}
+.bike-zone-ref .zone-line{display:flex;justify-content:space-between;font-size:12px;color:#8e8e93;padding:2px 0;}
+.bike-zone-ref .zone-line strong{color:#1c1c1e;font-weight:500;}
+
 .reset-btn{width:100%;margin-top:20px;padding:13px;border:1px solid #d1d1d6;border-radius:12px;background:#fff;color:#8e8e93;font-size:14px;cursor:pointer;font-weight:500;}
 .finish-btn{width:100%;margin-top:10px;padding:13px;border:none;border-radius:12px;background:#1c1c1e;color:#fff;font-size:14px;cursor:pointer;font-weight:500;}
+
+/* Historico */
 .hist-week{background:#fff;border-radius:14px;padding:16px;margin-bottom:12px;border:0.5px solid rgba(0,0,0,0.08);}
 .hist-week-title{font-size:15px;font-weight:600;margin-bottom:12px;}
 .hist-days{display:flex;gap:8px;flex-wrap:wrap;}
@@ -62,12 +114,16 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',sans-serif;backg
 .hist-day.partial{background:#fff7ed;border-color:#fed7aa;color:#c2410c;}
 .hist-day.missed{background:#f9f9f9;color:#8e8e93;}
 .hist-empty{text-align:center;padding:40px 20px;color:#8e8e93;font-size:14px;}
+
+/* Evolucao */
 .evo-exercise{background:#fff;border-radius:14px;padding:16px;margin-bottom:12px;border:0.5px solid rgba(0,0,0,0.08);}
 .evo-name{font-size:15px;font-weight:600;margin-bottom:8px;}
 .evo-entries{display:flex;flex-direction:column;gap:6px;}
 .evo-entry{display:flex;justify-content:space-between;align-items:center;font-size:13px;}
 .evo-date{color:#8e8e93;}
 .evo-weight{font-weight:500;color:#1c1c1e;}
+
+/* Exportar */
 .export-section{background:#fff;border-radius:14px;padding:16px;margin-bottom:12px;border:0.5px solid rgba(0,0,0,0.08);}
 .export-section h3{font-size:15px;font-weight:600;margin-bottom:4px;}
 .export-section p{font-size:13px;color:#8e8e93;margin-bottom:12px;}
@@ -84,12 +140,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',sans-serif;backg
   <div class="tab" onclick="showScreen('exportar',this)">Exportar</div>
 </div>
 <div class="screen active" id="screen-treino">
-  <div class="header"><h1>Meu Treino</h1><p>Semana 1 · Bloco de retomada</p></div>
-  <div class="week-nav" id="weekNav"></div>
+  <div class="header"><h1>Meu Treino</h1><p>Bloco 1 · Retomada</p></div>
+  <div class="month-nav">
+    <button onclick="changeMonth(-1)">‹</button>
+    <span class="month-label" id="monthLabel"></span>
+    <button onclick="changeMonth(1)">›</button>
+  </div>
+  <div class="day-grid-wrap">
+    <div class="day-grid-header"><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span><span>Dom</span></div>
+    <div class="day-grid" id="dayGrid"></div>
+  </div>
   <div class="content" id="dayContent"></div>
 </div>
 <div class="screen" id="screen-historico">
-  <div class="header"><h1>Histórico</h1><p>Treinos registrados por semana</p></div>
+  <div class="header"><h1>Histórico</h1><p>Treinos registrados</p></div>
   <div class="content" id="histContent"></div>
 </div>
 <div class="screen" id="screen-evolucao">
@@ -100,8 +164,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',sans-serif;backg
   <div class="header"><h1>Exportar</h1><p>Resumo dos seus treinos</p></div>
   <div class="content">
     <div class="export-section">
-      <h3>Resumo da semana atual</h3>
-      <p>Gera um texto com todos os exercícios feitos, pesos e anotações.</p>
+      <h3>Resumo do dia selecionado</h3>
+      <p>Gera um texto com exercícios feitos, pesos e anotações do dia.</p>
       <button class="export-btn primary" onclick="generateExport()">Gerar resumo</button>
       <textarea class="textarea-export" id="exportText" readonly></textarea>
       <button class="export-btn" id="copyBtn" style="display:none" onclick="copyExport()">Copiar texto</button>
@@ -114,41 +178,492 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',sans-serif;backg
   </div>
 </div>
 <script>
-const DAYS=[{id:'seg',label:'Seg',type:'musculacao',title:'Musculação',sub:'Segunda-feira · manhã'},{id:'ter',label:'Ter',type:'bike',title:'Bike noturna',sub:'Terça-feira · a partir das 20h'},{id:'qua',label:'Qua',type:'musculacao',title:'Musculação',sub:'Quarta-feira · manhã'},{id:'qui',label:'Qui',type:'bike',title:'Bike noturna',sub:'Quinta-feira · a partir das 20h'},{id:'sex',label:'Sex',type:'musculacao',title:'Musculação',sub:'Sexta-feira · manhã'},{id:'sab',label:'Sáb',type:'bike_longa',title:'Bike longa',sub:'Sábado ou domingo · manhã'}];
-const MUSCULACAO=[{section:'Aquecimento (15 min)',items:[{name:'Esteira leve',detail:'15 min · ritmo leve'},{name:'Mobilidade articular',detail:'Quadril, ombros e coluna · 5 min'}]},{section:'Membros inferiores',items:[{name:'Cadeira extensora',detail:'3 séries · 12–15 reps',hasWeight:true},{name:'Cadeira flexora',detail:'3 séries · 12–15 reps',hasWeight:true},{name:'Elevação de quadril',detail:'3 séries · 12–15 reps · carga leve',hasWeight:true},{name:'Afundo',detail:'3 séries · 12 reps · sem carga ou leve',hasWeight:true}]},{section:'Membros superiores',items:[{name:'Supino com halteres',detail:'3 séries · 12–15 reps',hasWeight:true},{name:'Remada na polia baixa',detail:'3 séries · 12–15 reps',hasWeight:true},{name:'Desenvolvimento com halteres',detail:'3 séries · 12–15 reps',hasWeight:true},{name:'Rosca direta',detail:'3 séries · 12–15 reps',hasWeight:true},{name:'Tríceps na polia',detail:'3 séries · 12–15 reps',hasWeight:true}]},{section:'Costas',items:[{name:'Puxada na polia alta',detail:'3 séries · 12–15 reps · alternar pegada',hasWeight:true},{name:'Remada cavalinho',detail:'3 séries · 12–15 reps',hasWeight:true}]},{section:'Core',items:[{name:'Prancha frontal',detail:'3x · 30–45 seg'},{name:'Prancha lateral',detail:'3x cada lado · 20–30 seg'},{name:'Bird-dog',detail:'3x · 10 reps cada lado'}]},{section:'Desaquecimento (15 min)',items:[{name:'Alongamento geral',detail:'Quadril, costas e ombros'}]}];
-const BIKE=[{section:'Pedalada noturna',items:[{name:'Duração alvo',detail:'40–50 min'},{name:'Ritmo',detail:'Leve a moderado'},{name:'Hidratação',detail:'Água antes, durante e após'}]},{section:'Zonas de FC alvo',items:[{name:'Zona 2 · base aeróbica',detail:'107–125 bpm · foco principal',zone:true},{name:'Zona 3 · moderado',detail:'125–143 bpm · trechos pontuais',zone:true}]}];
-const BIKE_LONGA=[{section:'Saída longa',items:[{name:'Distância (semanas 1–2)',detail:'50 km'},{name:'Distância (semanas 3–4)',detail:'55–60 km'},{name:'Progressão',detail:'+10% por semana'}]},{section:'Zonas de FC alvo',items:[{name:'Zona 2 · base aeróbica',detail:'107–125 bpm · maior parte do tempo',zone:true},{name:'Zona 3 · moderado',detail:'125–143 bpm · se sentir bem',zone:true}]},{section:'Nutrição e hidratação',items:[{name:'Pré-treino',detail:'Algo leve 1h antes'},{name:'Durante',detail:'Barra ou fruta após 45 min'},{name:'Hidratação',detail:'Mínimo 500ml por hora'}]}];
-const DATA_MAP={musculacao:MUSCULACAO,bike:BIKE,bike_longa:BIKE_LONGA};
-const SK='treino_v2';
+/* ── Data structures ── */
+const MUSCULACAO=[
+  {section:'Aquecimento (15 min)',items:[
+    {name:'Esteira leve',detail:'15 min · ritmo leve'},
+    {name:'Mobilidade articular',detail:'Quadril, ombros e coluna · 5 min'}
+  ]},
+  {section:'Membros inferiores',items:[
+    {name:'Cadeira extensora',detail:'3 séries · 12–15 reps',hasWeight:true},
+    {name:'Cadeira flexora',detail:'3 séries · 12–15 reps',hasWeight:true},
+    {name:'Elevação de quadril',detail:'3 séries · 12–15 reps · carga leve',hasWeight:true},
+    {name:'Afundo',detail:'3 séries · 12 reps · sem carga ou leve',hasWeight:true}
+  ]},
+  {section:'Membros superiores',items:[
+    {name:'Supino com halteres',detail:'3 séries · 12–15 reps',hasWeight:true},
+    {name:'Remada na polia baixa',detail:'3 séries · 12–15 reps',hasWeight:true},
+    {name:'Desenvolvimento com halteres',detail:'3 séries · 12–15 reps',hasWeight:true},
+    {name:'Rosca direta',detail:'3 séries · 12–15 reps',hasWeight:true},
+    {name:'Tríceps na polia',detail:'3 séries · 12–15 reps',hasWeight:true}
+  ]},
+  {section:'Costas',items:[
+    {name:'Puxada na polia alta',detail:'3 séries · 12–15 reps · alternar pegada',hasWeight:true},
+    {name:'Remada cavalinho',detail:'3 séries · 12–15 reps',hasWeight:true}
+  ]},
+  {section:'Core',items:[
+    {name:'Prancha frontal',detail:'3x · 30–45 seg'},
+    {name:'Prancha lateral',detail:'3x cada lado · 20–30 seg'},
+    {name:'Bird-dog',detail:'3x · 10 reps cada lado'}
+  ]},
+  {section:'Desaquecimento (15 min)',items:[
+    {name:'Alongamento geral',detail:'Quadril, costas e ombros'}
+  ]}
+];
+
+const BIKE_FIELDS = {
+  distancia: {label:'Distância (km)', type:'number', placeholder:'ex: 42.5'},
+  duracao: {label:'Duração (min)', type:'number', placeholder:'ex: 90'},
+  fc_media: {label:'FC média (bpm)', type:'number', placeholder:'ex: 118'},
+  fc_max: {label:'FC máx (bpm)', type:'number', placeholder:'ex: 145'},
+  cadencia: {label:'Cadência média', type:'number', placeholder:'ex: 75'},
+  notas: {label:'Anotações', type:'textarea', placeholder:'Como foi a pedalada, sensações, clima...'}
+};
+
+/* ── State ── */
+const SK='treino_v3';
 let db={};
-let currentDay='seg';
-let currentWeek=getWeekKey();
+let viewYear, viewMonth;
+let selectedDate;
+let openAccordion={};
 let openExtras={};
-function getWeekKey(){const d=new Date();const jan1=new Date(d.getFullYear(),0,1);const wk=Math.ceil(((d-jan1)/86400000+jan1.getDay()+1)/7);return d.getFullYear()+'W'+String(wk).padStart(2,'0');}
+
+/* ── Date helpers ── */
+function today(){const d=new Date();return dateKey(d);}
+function dateKey(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function parseDate(k){const p=k.split('-');return new Date(+p[0],+p[1]-1,+p[2]);}
+function dayOfWeekLabel(k){const names=['Domingo','Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado'];return names[parseDate(k).getDay()];}
+function dayOfWeekShort(k){const names=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];return names[parseDate(k).getDay()];}
+function formatDateBR(k){const d=parseDate(k);return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear();}
+const MONTH_NAMES=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+
+/* ── Storage ── */
 function load(){try{db=JSON.parse(localStorage.getItem(SK))||{};}catch(e){db={};}}
 function save(){try{localStorage.setItem(SK,JSON.stringify(db));}catch(e){}}
-function getChecks(w,d){return(db[w]&&db[w][d]&&db[w][d].checks)||{};}
-function getNotes(w,d,i){return(db[w]&&db[w][d]&&db[w][d].notes&&db[w][d].notes[i])||'';}
-function getWeight(w,d,i){return(db[w]&&db[w][d]&&db[w][d].weights&&db[w][d].weights[i])||'';}
-function setCheck(w,d,i,v){if(!db[w])db[w]={};if(!db[w][d])db[w][d]={checks:{},notes:{},weights:{}};db[w][d].checks[i]=v;save();}
-function setNote(w,d,i,v){if(!db[w])db[w]={};if(!db[w][d])db[w][d]={checks:{},notes:{},weights:{}};if(!db[w][d].notes)db[w][d].notes={};db[w][d].notes[i]=v;save();}
-function setWeight(w,d,i,v){if(!db[w])db[w]={};if(!db[w][d])db[w][d]={checks:{},notes:{},weights:{}};if(!db[w][d].weights)db[w][d].weights={};db[w][d].weights[i]=v;if(v){const dayObj=DAYS.find(x=>x.id===d);const flat=flatItems(DATA_MAP[dayObj.type]);const exName=flat[i]?flat[i].name:'';if(!db._evo)db._evo={};if(!db._evo[exName])db._evo[exName]=[];const today=new Date().toLocaleDateString('pt-BR');const existing=db._evo[exName].find(e=>e.date===today&&e.week===w);if(existing){existing.weight=v;}else{db._evo[exName].push({date:today,week:w,weight:v});}}save();}
+
+/* Access helpers */
+function getDayData(date,act){return(db[date]&&db[date][act])||null;}
+function ensureDay(date,act){if(!db[date])db[date]={};if(!db[date][act])db[date][act]={checks:{},notes:{},weights:{},bikeData:{}};}
+
+function getChecks(date){return(db[date]&&db[date].gym&&db[date].gym.checks)||{};}
+function setCheck(date,i,v){ensureDay(date,'gym');db[date].gym.checks[i]=v;save();}
+function getNote(date,i){return(db[date]&&db[date].gym&&db[date].gym.notes&&db[date].gym.notes[i])||'';}
+function setNote(date,i,v){ensureDay(date,'gym');if(!db[date].gym.notes)db[date].gym.notes={};db[date].gym.notes[i]=v;save();}
+function getWeight(date,i){return(db[date]&&db[date].gym&&db[date].gym.weights&&db[date].gym.weights[i])||'';}
+function setWeight(date,i,v){
+  ensureDay(date,'gym');
+  if(!db[date].gym.weights)db[date].gym.weights={};
+  db[date].gym.weights[i]=v;
+  if(v){
+    const flat=flatItems(MUSCULACAO);
+    const exName=flat[i]?flat[i].name:'';
+    if(!db._evo)db._evo={};
+    if(!db._evo[exName])db._evo[exName]=[];
+    const dateBR=formatDateBR(date);
+    const existing=db._evo[exName].find(e=>e.date===dateBR&&e.dateKey===date);
+    if(existing){existing.weight=v;}
+    else{db._evo[exName].push({date:dateBR,dateKey:date,weight:v});}
+  }
+  save();
+}
+
+function getBikeField(date,field){return(db[date]&&db[date].bike&&db[date].bike.bikeData&&db[date].bike.bikeData[field])||'';}
+function setBikeField(date,field,v){ensureDay(date,'bike');if(!db[date].bike.bikeData)db[date].bike.bikeData={};db[date].bike.bikeData[field]=v;save();}
+
 function flatItems(sections){const flat=[];sections.forEach(s=>s.items.forEach(i=>flat.push(i)));return flat;}
-function showScreen(name,el){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.getElementById('screen-'+name).classList.add('active');el.classList.add('active');if(name==='historico')renderHistorico();if(name==='evolucao')renderEvolucao();}
-function renderNav(){const nav=document.getElementById('weekNav');nav.innerHTML='';DAYS.forEach(d=>{const flat=flatItems(DATA_MAP[d.type]);const checks=getChecks(currentWeek,d.id);const done=flat.filter((_,i)=>checks[i]).length;const total=flat.length;const btn=document.createElement('button');let cls='day-btn';if(d.id===currentDay)cls+=' active';else if(done===total&&done>0)cls+=' done-full';else if(done>0)cls+=' done-partial';btn.className=cls;btn.textContent=d.label;btn.onclick=()=>{currentDay=d.id;openExtras={};renderDay();};nav.appendChild(btn);});}
-function renderDay(){renderNav();const day=DAYS.find(d=>d.id===currentDay);const sections=DATA_MAP[day.type];const flat=flatItems(sections);const checks=getChecks(currentWeek,currentDay);const done=flat.filter((_,i)=>checks[i]).length;const total=flat.length;const pct=total>0?Math.round(done/total*100):0;let html=`<div class="day-header"><div class="day-title">${day.title}</div><div class="day-sub">${day.sub}</div><div class="progress-wrap"><div class="progress-bar-bg"><div class="progress-bar" style="width:${pct}%"></div></div><div class="progress-label">${done}/${total}</div></div></div>`;let gi=0;sections.forEach(sec=>{html+=`<div class="section-label">${sec.section}</div>`;sec.items.forEach(item=>{const idx=gi;const isDone=!!checks[idx];const isOpen=!!openExtras[idx];const note=getNotes(currentWeek,currentDay,idx);const weight=getWeight(currentWeek,currentDay,idx);html+=`<div class="exercise-card${isDone?' done':''}" id="card-${idx}"><div class="exercise-top" onclick="toggle(${idx})"><div class="check"><svg class="checkmark" viewBox="0 0 13 13" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,7 5,10 11,3"/></svg></div><div class="ex-info"><div class="ex-name">${item.name}</div><div class="ex-detail">${item.detail}${weight?' · <strong>'+weight+'kg</strong>':''}</div>${item.zone?'<span class="zone-badge">FC</span>':''}</div></div><button class="expand-btn" onclick="toggleExtra(${idx})">${isOpen?'▲ fechar':'▼ peso e anotação'}</button><div class="ex-extra${isOpen?' open':''}">${item.hasWeight?`<label>Carga usada (kg)</label><input type="number" inputmode="decimal" placeholder="ex: 12.5" value="${weight}" onchange="saveWeight(${idx},this.value)">`:''}<label>Anotação</label><textarea placeholder="ex: senti dificuldade na 3ª série..." onchange="saveNote(${idx},this.value)">${note}</textarea></div></div>`;gi++;});});html+=`<button class="finish-btn" onclick="finishDay()">Registrar treino do dia</button><button class="reset-btn" onclick="resetDay()">Limpar dia</button>`;document.getElementById('dayContent').innerHTML=html;}
-function toggle(idx){const checks=getChecks(currentWeek,currentDay);setCheck(currentWeek,currentDay,idx,!checks[idx]);renderDay();}
-function toggleExtra(idx){openExtras[idx]=!openExtras[idx];renderDay();}
-function saveNote(idx,val){setNote(currentWeek,currentDay,idx,val);}
-function saveWeight(idx,val){setWeight(currentWeek,currentDay,idx,val);renderDay();}
-function finishDay(){const day=DAYS.find(d=>d.id===currentDay);const flat=flatItems(DATA_MAP[day.type]);const checks=getChecks(currentWeek,currentDay);const done=flat.filter((_,i)=>checks[i]).length;if(!db[currentWeek])db[currentWeek]={};if(!db[currentWeek][currentDay])db[currentWeek][currentDay]={checks:{},notes:{},weights:{}};db[currentWeek][currentDay].finished=true;db[currentWeek][currentDay].finishedAt=new Date().toISOString();db[currentWeek][currentDay].doneCount=done;db[currentWeek][currentDay].totalCount=flat.length;save();alert('Treino registrado! '+done+' de '+flat.length+' exercícios concluídos.');}
-function resetDay(){if(!confirm('Limpar todos os checks do dia?'))return;if(db[currentWeek]&&db[currentWeek][currentDay]){db[currentWeek][currentDay].checks={};db[currentWeek][currentDay].finished=false;}openExtras={};save();renderDay();}
-function renderHistorico(){const weeks=Object.keys(db).filter(k=>k.match(/^\d{4}W\d{2}$/)).sort().reverse();if(weeks.length===0){document.getElementById('histContent').innerHTML='<div class="hist-empty">Nenhum treino registrado ainda.<br>Complete um dia e toque em "Registrar treino do dia".</div>';return;}let html='';weeks.forEach(wk=>{const parts=wk.split('W');html+=`<div class="hist-week"><div class="hist-week-title">Semana ${parseInt(parts[1])} · ${parts[0]}</div><div class="hist-days">`;DAYS.forEach(d=>{const dayData=db[wk]&&db[wk][d.id];let cls='hist-day missed';let label=d.label;if(dayData&&dayData.finished){const pct=dayData.totalCount?Math.round(dayData.doneCount/dayData.totalCount*100):0;cls=pct===100?'hist-day done':'hist-day partial';label+=` ${pct}%`;}html+=`<div class="${cls}">${label}</div>`;});html+='</div></div>';});document.getElementById('histContent').innerHTML=html;}
-function renderEvolucao(){if(!db._evo||Object.keys(db._evo).length===0){document.getElementById('evoContent').innerHTML='<div class="hist-empty">Nenhuma carga registrada ainda.<br>Adicione pesos nos exercícios durante o treino.</div>';return;}let html='';Object.keys(db._evo).sort().forEach(exName=>{const entries=db._evo[exName].slice().reverse();html+=`<div class="evo-exercise"><div class="evo-name">${exName}</div><div class="evo-entries">`;entries.forEach(e=>{html+=`<div class="evo-entry"><span class="evo-date">${e.date}</span><span class="evo-weight">${e.weight} kg</span></div>`;});html+='</div></div>';});document.getElementById('evoContent').innerHTML=html;}
-function generateExport(){const lines=[];const now=new Date().toLocaleDateString('pt-BR');lines.push('RESUMO DE TREINO — '+now);lines.push('Semana: '+currentWeek);lines.push('');DAYS.forEach(d=>{const dayData=db[currentWeek]&&db[currentWeek][d.id];if(!dayData)return;const flat=flatItems(DATA_MAP[d.type]);const checks=dayData.checks||{};const done=flat.filter((_,i)=>checks[i]).length;lines.push('--- '+d.title.toUpperCase()+' ('+d.label+') ---');lines.push('Concluídos: '+done+'/'+flat.length);flat.forEach((item,i)=>{const status=checks[i]?'✓':'○';const w=(dayData.weights&&dayData.weights[i])?(' ['+dayData.weights[i]+'kg]'):'';const n=(dayData.notes&&dayData.notes[i])?(' — '+dayData.notes[i]):'';lines.push('  '+status+' '+item.name+w+n);});lines.push('');});if(db._evo&&Object.keys(db._evo).length>0){lines.push('--- EVOLUÇÃO DE CARGA ---');Object.keys(db._evo).sort().forEach(ex=>{const last=db._evo[ex][db._evo[ex].length-1];if(last)lines.push('  '+ex+': '+last.weight+'kg ('+last.date+')');})}const txt=lines.join('\n');document.getElementById('exportText').value=txt;document.getElementById('exportText').style.display='block';document.getElementById('copyBtn').style.display='block';}
-function copyExport(){const ta=document.getElementById('exportText');ta.select();try{navigator.clipboard.writeText(ta.value).then(()=>alert('Copiado!'));}catch(e){document.execCommand('copy');alert('Copiado!');}}
-function clearAll(){if(!confirm('Apagar TODOS os dados? Isso não pode ser desfeito.'))return;localStorage.removeItem(SK);db={};alert('Dados apagados.');renderDay();}
+
+function hasDataOnDate(date){
+  if(!db[date])return false;
+  if(db[date].gym){
+    const c=db[date].gym.checks||{};
+    if(Object.values(c).some(v=>v))return true;
+    if(db[date].gym.finished)return true;
+  }
+  if(db[date].bike){
+    const bd=db[date].bike.bikeData||{};
+    if(Object.values(bd).some(v=>v&&v!==''))return true;
+    if(db[date].bike.finished)return true;
+  }
+  return false;
+}
+
+/* ── Screens ── */
+function showScreen(name,el){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('screen-'+name).classList.add('active');
+  el.classList.add('active');
+  if(name==='historico')renderHistorico();
+  if(name==='evolucao')renderEvolucao();
+}
+
+/* ── Calendar ── */
+function changeMonth(delta){
+  viewMonth+=delta;
+  if(viewMonth>11){viewMonth=0;viewYear++;}
+  if(viewMonth<0){viewMonth=11;viewYear--;}
+  renderCalendar();
+}
+
+function renderCalendar(){
+  document.getElementById('monthLabel').textContent=MONTH_NAMES[viewMonth]+' '+viewYear;
+  const grid=document.getElementById('dayGrid');
+  const firstDay=new Date(viewYear,viewMonth,1);
+  let startDow=firstDay.getDay();
+  startDow=startDow===0?6:startDow-1;
+  const daysInMonth=new Date(viewYear,viewMonth+1,0).getDate();
+  const todayKey=today();
+  const todayDate=new Date();
+
+  let html='';
+  for(let i=0;i<startDow;i++) html+='<div class="day-cell empty"></div>';
+  for(let d=1;d<=daysInMonth;d++){
+    const dk=viewYear+'-'+String(viewMonth+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
+    const isToday=dk===todayKey;
+    const isSel=dk===selectedDate;
+    const hasData=hasDataOnDate(dk);
+    const isFuture=parseDate(dk)>todayDate&&!isToday;
+    let cls='day-cell';
+    if(isToday)cls+=' today';
+    if(isSel)cls+=' selected';
+    if(hasData)cls+=' has-data';
+    if(isFuture)cls+=' future';
+    html+=`<div class="${cls}" onclick="selectDate('${dk}')">${d}</div>`;
+  }
+  grid.innerHTML=html;
+}
+
+function selectDate(dk){
+  selectedDate=dk;
+  openAccordion={};
+  openExtras={};
+  renderCalendar();
+  renderDay();
+}
+
+/* ── Day rendering ── */
+function renderDay(){
+  const dow=dayOfWeekLabel(selectedDate);
+  const dateBR=formatDateBR(selectedDate);
+
+  const flat=flatItems(MUSCULACAO);
+  const checks=getChecks(selectedDate);
+  const gymDone=flat.filter((_,i)=>checks[i]).length;
+  const gymTotal=flat.length;
+  const gymPct=gymTotal>0?Math.round(gymDone/gymTotal*100):0;
+
+  const bikeFieldKeys=Object.keys(BIKE_FIELDS);
+  const bikeFilled=bikeFieldKeys.filter(f=>getBikeField(selectedDate,f)!=='').length;
+  const bikeTotal=bikeFieldKeys.length;
+
+  let gymBadgeCls='accordion-badge';
+  let gymBadgeText='0/'+gymTotal;
+  if(gymDone===gymTotal&&gymDone>0){gymBadgeCls+=' complete';gymBadgeText='Completo';}
+  else if(gymDone>0){gymBadgeCls+=' partial';gymBadgeText=gymDone+'/'+gymTotal;}
+
+  let bikeBadgeCls='accordion-badge';
+  let bikeBadgeText='Vazio';
+  if(bikeFilled===bikeTotal){bikeBadgeCls+=' complete';bikeBadgeText='Completo';}
+  else if(bikeFilled>0){bikeBadgeCls+=' partial';bikeBadgeText=bikeFilled+'/'+bikeTotal;}
+
+  const gymOpen=!!openAccordion.gym;
+  const bikeOpen=!!openAccordion.bike;
+
+  let html=`<div class="day-header">
+    <div class="day-title">${dow}</div>
+    <div class="day-sub">${dateBR}</div>
+  </div>`;
+
+  /* ── GYM ACCORDION ── */
+  html+=`<div class="activity-accordion">
+    <div class="accordion-trigger" onclick="toggleAccordion('gym')">
+      <div class="accordion-left">
+        <div class="accordion-icon gym">🏋</div>
+        <div class="accordion-title">Academia</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span class="${gymBadgeCls}">${gymBadgeText}</span>
+        <span class="accordion-arrow${gymOpen?' open':''}">▾</span>
+      </div>
+    </div>
+    <div class="accordion-body${gymOpen?' open':''}">
+      <div class="content-inner">
+        <div class="progress-wrap"><div class="progress-bar-bg"><div class="progress-bar" style="width:${gymPct}%"></div></div><div class="progress-label">${gymDone}/${gymTotal}</div></div>`;
+
+  let gi=0;
+  MUSCULACAO.forEach(sec=>{
+    html+=`<div class="section-label">${sec.section}</div>`;
+    sec.items.forEach(item=>{
+      const idx=gi;
+      const isDone=!!checks[idx];
+      const isOpen=!!openExtras['gym_'+idx];
+      const note=getNote(selectedDate,idx);
+      const weight=getWeight(selectedDate,idx);
+      html+=`<div class="exercise-card${isDone?' done':''}" id="card-gym-${idx}">
+        <div class="exercise-top" onclick="toggleCheck(${idx})">
+          <div class="check"><svg class="checkmark" viewBox="0 0 13 13" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,7 5,10 11,3"/></svg></div>
+          <div class="ex-info">
+            <div class="ex-name">${item.name}</div>
+            <div class="ex-detail">${item.detail}${weight?' · <strong>'+weight+'kg</strong>':''}</div>
+          </div>
+        </div>
+        <button class="expand-btn" onclick="toggleExtra('gym_${idx}')">${isOpen?'▲ fechar':'▼ peso e anotação'}</button>
+        <div class="ex-extra${isOpen?' open':''}">
+          ${item.hasWeight?`<label>Carga usada (kg)</label><input type="number" inputmode="decimal" placeholder="ex: 12.5" value="${weight}" onchange="saveGymWeight(${idx},this.value)">`:''}<label>Anotação</label>
+          <textarea placeholder="ex: senti dificuldade na 3ª série..." onchange="saveGymNote(${idx},this.value)">${note}</textarea>
+        </div>
+      </div>`;
+      gi++;
+    });
+  });
+  html+=`</div></div></div>`;
+
+  /* ── BIKE ACCORDION ── */
+  html+=`<div class="activity-accordion">
+    <div class="accordion-trigger" onclick="toggleAccordion('bike')">
+      <div class="accordion-left">
+        <div class="accordion-icon bike">🚴</div>
+        <div class="accordion-title">Bicicleta</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span class="${bikeBadgeCls}">${bikeBadgeText}</span>
+        <span class="accordion-arrow${bikeOpen?' open':''}">▾</span>
+      </div>
+    </div>
+    <div class="accordion-body${bikeOpen?' open':''}">
+      <div class="content-inner">
+        <div class="bike-fields">
+          <div class="field-row">
+            <div>
+              <label>${BIKE_FIELDS.distancia.label}</label>
+              <input type="number" inputmode="decimal" placeholder="${BIKE_FIELDS.distancia.placeholder}" value="${getBikeField(selectedDate,'distancia')}" onchange="saveBikeField('distancia',this.value)">
+            </div>
+            <div>
+              <label>${BIKE_FIELDS.duracao.label}</label>
+              <input type="number" inputmode="decimal" placeholder="${BIKE_FIELDS.duracao.placeholder}" value="${getBikeField(selectedDate,'duracao')}" onchange="saveBikeField('duracao',this.value)">
+            </div>
+          </div>
+          <div class="field-row">
+            <div>
+              <label>${BIKE_FIELDS.fc_media.label}</label>
+              <input type="number" inputmode="decimal" placeholder="${BIKE_FIELDS.fc_media.placeholder}" value="${getBikeField(selectedDate,'fc_media')}" onchange="saveBikeField('fc_media',this.value)">
+            </div>
+            <div>
+              <label>${BIKE_FIELDS.fc_max.label}</label>
+              <input type="number" inputmode="decimal" placeholder="${BIKE_FIELDS.fc_max.placeholder}" value="${getBikeField(selectedDate,'fc_max')}" onchange="saveBikeField('fc_max',this.value)">
+            </div>
+          </div>
+          <label>${BIKE_FIELDS.cadencia.label}</label>
+          <input type="number" inputmode="decimal" placeholder="${BIKE_FIELDS.cadencia.placeholder}" value="${getBikeField(selectedDate,'cadencia')}" onchange="saveBikeField('cadencia',this.value)">
+          <label>${BIKE_FIELDS.notas.label}</label>
+          <textarea placeholder="${BIKE_FIELDS.notas.placeholder}" onchange="saveBikeField('notas',this.value)">${getBikeField(selectedDate,'notas')}</textarea>
+        </div>
+        <div class="bike-zone-ref">
+          <div class="zone-line"><span>Zona 2 · base aeróbica</span><strong>107–125 bpm</strong></div>
+          <div class="zone-line"><span>Zona 3 · moderado</span><strong>125–143 bpm</strong></div>
+          <div class="zone-line"><span>Zona 4 · limiar</span><strong>143–160 bpm</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+
+  html+=`<button class="finish-btn" onclick="finishDay()">Registrar treino do dia</button>`;
+  html+=`<button class="reset-btn" onclick="resetDay()">Limpar dia</button>`;
+
+  document.getElementById('dayContent').innerHTML=html;
+}
+
+/* ── Actions ── */
+function toggleAccordion(key){openAccordion[key]=!openAccordion[key];renderDay();}
+function toggleExtra(key){openExtras[key]=!openExtras[key];renderDay();}
+function toggleCheck(idx){const checks=getChecks(selectedDate);setCheck(selectedDate,idx,!checks[idx]);renderDay();renderCalendar();}
+function saveGymNote(idx,val){setNote(selectedDate,idx,val);}
+function saveGymWeight(idx,val){setWeight(selectedDate,idx,val);renderDay();}
+function saveBikeField(field,val){setBikeField(selectedDate,field,val);renderCalendar();}
+
+function finishDay(){
+  const flat=flatItems(MUSCULACAO);
+  const checks=getChecks(selectedDate);
+  const gymDone=flat.filter((_,i)=>checks[i]).length;
+  ensureDay(selectedDate,'gym');
+  db[selectedDate].gym.finished=true;
+  db[selectedDate].gym.finishedAt=new Date().toISOString();
+  db[selectedDate].gym.doneCount=gymDone;
+  db[selectedDate].gym.totalCount=flat.length;
+
+  const bikeFieldKeys=Object.keys(BIKE_FIELDS);
+  const bikeFilled=bikeFieldKeys.filter(f=>getBikeField(selectedDate,f)!=='').length;
+  ensureDay(selectedDate,'bike');
+  db[selectedDate].bike.finished=bikeFilled>0;
+  db[selectedDate].bike.filledCount=bikeFilled;
+  db[selectedDate].bike.totalFields=bikeFieldKeys.length;
+
+  save();
+  renderCalendar();
+  let msg='Treino registrado!';
+  if(gymDone>0) msg+=' Academia: '+gymDone+'/'+flat.length+'.';
+  if(bikeFilled>0) msg+=' Bike: '+bikeFilled+' campos preenchidos.';
+  alert(msg);
+}
+
+function resetDay(){
+  if(!confirm('Limpar todos os dados deste dia?'))return;
+  delete db[selectedDate];
+  openAccordion={};openExtras={};
+  save();renderDay();renderCalendar();
+}
+
+/* ── Historico ── */
+function renderHistorico(){
+  const dates=Object.keys(db).filter(k=>k.match(/^\d{4}-\d{2}-\d{2}$/)).sort().reverse();
+  if(dates.length===0){
+    document.getElementById('histContent').innerHTML='<div class="hist-empty">Nenhum treino registrado ainda.<br>Complete um dia e toque em "Registrar treino do dia".</div>';
+    return;
+  }
+  const months={};
+  dates.forEach(dk=>{
+    const mk=dk.substring(0,7);
+    if(!months[mk])months[mk]=[];
+    months[mk].push(dk);
+  });
+
+  let html='';
+  Object.keys(months).sort().reverse().forEach(mk=>{
+    const p=mk.split('-');
+    const mLabel=MONTH_NAMES[parseInt(p[1])-1]+' '+p[0];
+    html+=`<div class="hist-week"><div class="hist-week-title">${mLabel}</div><div class="hist-days">`;
+    months[mk].forEach(dk=>{
+      const gymData=db[dk]&&db[dk].gym;
+      const bikeData=db[dk]&&db[dk].bike;
+      let hasGym=gymData&&gymData.finished;
+      let hasBike=bikeData&&bikeData.finished;
+      if(!hasGym&&!hasBike)return;
+
+      let label=String(parseDate(dk).getDate()).padStart(2,'0')+' '+dayOfWeekShort(dk);
+      let parts=[];
+      if(hasGym){
+        const pct=gymData.totalCount?Math.round(gymData.doneCount/gymData.totalCount*100):0;
+        parts.push('🏋'+pct+'%');
+      }
+      if(hasBike){parts.push('🚴');}
+      label+=' '+parts.join(' ');
+
+      let cls='hist-day';
+      if(hasGym){
+        const pct=gymData.totalCount?Math.round(gymData.doneCount/gymData.totalCount*100):0;
+        cls+=pct===100?' done':' partial';
+      } else if(hasBike){
+        cls+=' done';
+      }
+      html+=`<div class="${cls}">${label}</div>`;
+    });
+    html+='</div></div>';
+  });
+  document.getElementById('histContent').innerHTML=html||'<div class="hist-empty">Nenhum treino finalizado.</div>';
+}
+
+/* ── Evolucao ── */
+function renderEvolucao(){
+  if(!db._evo||Object.keys(db._evo).length===0){
+    document.getElementById('evoContent').innerHTML='<div class="hist-empty">Nenhuma carga registrada ainda.<br>Adicione pesos nos exercícios durante o treino.</div>';
+    return;
+  }
+  let html='';
+  Object.keys(db._evo).sort().forEach(exName=>{
+    const entries=db._evo[exName].slice().reverse();
+    html+=`<div class="evo-exercise"><div class="evo-name">${exName}</div><div class="evo-entries">`;
+    entries.forEach(e=>{
+      html+=`<div class="evo-entry"><span class="evo-date">${e.date}</span><span class="evo-weight">${e.weight} kg</span></div>`;
+    });
+    html+='</div></div>';
+  });
+  document.getElementById('evoContent').innerHTML=html;
+}
+
+/* ── Exportar ── */
+function generateExport(){
+  const lines=[];
+  const dateBR=formatDateBR(selectedDate);
+  const dow=dayOfWeekLabel(selectedDate);
+  lines.push('RESUMO DE TREINO');
+  lines.push(dow+', '+dateBR);
+  lines.push('');
+
+  const flat=flatItems(MUSCULACAO);
+  const checks=getChecks(selectedDate);
+  const gymDone=flat.filter((_,i)=>checks[i]).length;
+  if(gymDone>0||Object.keys(checks).length>0){
+    lines.push('--- ACADEMIA ---');
+    lines.push('Concluídos: '+gymDone+'/'+flat.length);
+    flat.forEach((item,i)=>{
+      const status=checks[i]?'✓':'○';
+      const w=getWeight(selectedDate,i);
+      const n=getNote(selectedDate,i);
+      lines.push('  '+status+' '+item.name+(w?' ['+w+'kg]':'')+(n?' — '+n:''));
+    });
+    lines.push('');
+  }
+
+  const bikeFieldKeys=Object.keys(BIKE_FIELDS);
+  const hasBikeData=bikeFieldKeys.some(f=>getBikeField(selectedDate,f)!=='');
+  if(hasBikeData){
+    lines.push('--- BICICLETA ---');
+    bikeFieldKeys.forEach(f=>{
+      const val=getBikeField(selectedDate,f);
+      if(val)lines.push('  '+BIKE_FIELDS[f].label+': '+val);
+    });
+    lines.push('');
+  }
+
+  if(db._evo&&Object.keys(db._evo).length>0){
+    lines.push('--- EVOLUÇÃO DE CARGA (últimos registros) ---');
+    Object.keys(db._evo).sort().forEach(ex=>{
+      const last=db._evo[ex][db._evo[ex].length-1];
+      if(last)lines.push('  '+ex+': '+last.weight+'kg ('+last.date+')');
+    });
+  }
+
+  const txt=lines.join('\n');
+  document.getElementById('exportText').value=txt;
+  document.getElementById('exportText').style.display='block';
+  document.getElementById('copyBtn').style.display='block';
+}
+
+function copyExport(){
+  const ta=document.getElementById('exportText');
+  ta.select();
+  try{navigator.clipboard.writeText(ta.value).then(()=>alert('Copiado!'));}
+  catch(e){document.execCommand('copy');alert('Copiado!');}
+}
+
+function clearAll(){
+  if(!confirm('Apagar TODOS os dados? Isso não pode ser desfeito.'))return;
+  localStorage.removeItem(SK);
+  db={};
+  alert('Dados apagados.');
+  renderDay();renderCalendar();
+}
+
+/* ── Migration from v2 ── */
+function migrateV2(){
+  try{
+    const old=JSON.parse(localStorage.getItem('treino_v2'));
+    if(!old)return;
+    if(old._evo&&!db._evo){
+      db._evo=old._evo;
+      save();
+    }
+  }catch(e){}
+}
+
+/* ── Init ── */
 load();
+migrateV2();
+const todayObj=new Date();
+viewYear=todayObj.getFullYear();
+viewMonth=todayObj.getMonth();
+selectedDate=today();
+renderCalendar();
 renderDay();
 </script>
 </body>
